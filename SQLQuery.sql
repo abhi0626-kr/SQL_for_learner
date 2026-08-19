@@ -1,3 +1,6 @@
+
+
+
 --QUERY IS TO DROP OR DELETE THE DATABASE--
 Drop database AK
 ALTER TABLE DETAIL DROP COLUMN Age;
@@ -34,6 +37,7 @@ Age int,
 --TO INSERT THE VALUES INSIDE THE TABLE, WHERE THE TABLE NAME='deatils' --
 INSERT INTO details values (001, 'bro', 21);
 INSERT INTO DETAIL values (002, 'Sukuna', 20, '2005-04-25', 1234567890);
+insert into DETAIL values (003, 'Toji', 19, '2007-01-26', 0987654321);
 
 --ADD A NEW COLUMN ON THE TABLE--
 ALTER TABLE details ADD DOB DATE;
@@ -84,3 +88,4 @@ where name = 'Gojo' or Age = 19;
 --(AND) operation can run both the given condition have to satisfied, else error(record not found)-- 
 select DOB as 'det' from DETAIL
 where name = 'Gojo' and Age = 21;
+
