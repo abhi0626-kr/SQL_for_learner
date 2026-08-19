@@ -1,0 +1,86 @@
+--QUERY IS TO DROP OR DELETE THE DATABASE--
+Drop database AK
+ALTER TABLE DETAIL DROP COLUMN Age;
+
+--THIS IS USED TO CREATR A DATABASE--
+create database Abhi;
+use Abhishek;
+
+--TO BACKUP THE DATABASE IN PERTICULAR LOCATION IN PC--
+BACKUP DATABASE Abhishek
+TO DISK = 'A:\Git commands\Abhishek.bak'
+
+
+--TO EDIT THE DATABASE NAME WHERE 'Abhi' TO 'Abhishek'--
+ALTER DATABASE Abhi modify name = Abhishek;
+
+--TO EDIT THE DATABASE USE BY SINGLE_USER = THE ONE WHO CREATE THE DATABASE--
+ALTER DATABASE Abhishek 
+SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+
+--TO EDIT THE DATABASE USE BY MULTIPLY_USER CAN (EDIT, DELETE, OR ADD) ITEMS IN DATABASE--
+ALTER DATABASE Abhishek 
+SET MULTI_USER WITH ROLLBACK IMMEDIATE
+
+
+--TO CRATE A TABLE IN THE DATABASE, DB='Abhi' CONTAIN A TABLE TBL='details'--
+create table details(
+PK_ID INT PRIMARY KEY,
+name varchar(20),
+Age int,
+);
+
+
+--TO INSERT THE VALUES INSIDE THE TABLE, WHERE THE TABLE NAME='deatils' --
+INSERT INTO details values (001, 'bro', 21);
+INSERT INTO DETAIL values (002, 'Sukuna', 20, '2005-04-25', 1234567890);
+
+--ADD A NEW COLUMN ON THE TABLE--
+ALTER TABLE details ADD DOB DATE;
+ALTER TABLE details ADD AADHAR_NO INT;
+
+--CHANGE THE DATA TYPE OF THE PHONE_NO FROM INT TO BIGINT--
+ALTER TABLE DETAIL ALTER COLUMN PHONE_NO BIGINT;
+
+--UPDATE THE DOB VALUE, NOW IT'S NULL--
+UPDATE details SET DOB = '2006-03-06' WHERE name = 'bro';
+UPDATE details SET AADHAR_NO = '828627506315' WHERE name = 'bro';
+UPDATE DETAIL SET PHONE_NO = 6383221055 WHERE Age = 21;
+
+
+--RENAME THE TABLE NAME FROM "details" to "DETAIL"
+sp_rename details, DETAIL;
+
+--USE TO SEE THE TABLE AND THE VALUES INSIDE THE TABLE--
+SELECT * FROM DETAIL;
+
+--RENAME A COLUMN NAME IN A TABLE --
+sp_rename 'DETAIL.AADHAR_NO', 'PHONE_NO', 'COLUMN';
+
+--(BEGIN) IS USED TO START A TRANSACTION--
+BEGIN TRANSACTION; -- Starting point--
+
+--(COMMIT) IS USED TO SAVE THE ALL CHANGES TO DATABASE DIRECTLY--
+update DETAIL set name = 'Gojo' where Age = 21;
+select * from DETAIL;
+
+COMMIT TRANSACTION;
+
+--(ROLLBACK) IS COMMONLY USE TO UNDO THE LAST TRANSACTION--
+ROLLBACK TRANSACTION;
+
+--USE TO SEE OR SHOW THE WHOLE DATABASE STRUCTURE--
+sp_help DETAIL;
+
+-- COPY ONE TABLE RECORD TO ANOTHER EMPTY TABLE--
+--Before that you have to create a table with the same sturcture--
+INSERT INTO details SELECT * FROM DETAIL; 
+
+--Operation--
+--(OR) operation can run either any one in the given condition have to satisfied-- 
+select PK_ID as 'det' from DETAIL
+where name = 'Gojo' or Age = 19;
+
+--(AND) operation can run both the given condition have to satisfied, else error(record not found)-- 
+select DOB as 'det' from DETAIL
+where name = 'Gojo' and Age = 21;
