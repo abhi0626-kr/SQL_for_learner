@@ -125,3 +125,56 @@ default 'Bangalore' for city;
 
 alter table Default_concepts
 alter column city drop default;
+
+
+
+--Foreign_ Key constraint---------------------------------------------------------------------------------
+
+--1. Parent Table -> Country
+
+create table country (
+country_ID int primary key,
+country_Name varchar(50) not null
+);
+
+
+--2. Depends on country -> States
+
+create table States (
+State_ID int primary key,
+State_Name varchar(50) not null,
+country_ID int not null,
+constraint FK_State_country foreign key (country_ID)
+references country(country_ID)
+);
+
+
+--3. Depends on State -> City
+
+create table City (
+City_ID int primary key,
+City_Name varchar(50) not null,
+State_ID int not null,
+constraint FK_City_State foreign key (State_ID)
+references States(State_ID)
+);
+
+
+--4. Depends on City -> Customer's
+
+create table Customer_details (
+Customer_ID int primary key,
+Customer_Name varchar(50) not null,
+City_ID int not null,
+constraint FK_Customer_City foreign key (City_ID)
+references City(City_ID)
+);
+
+
+---
+insert into country values (01, 'India'),(02, 'Japan');
+
+insert into States values (001, 'TamilNadu',01),(002, 'Tokyo',02);
+
+insert into City values (0001, 'Chennai',001),(0002, 'Hiroshima nagasai',002);
+
