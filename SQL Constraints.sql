@@ -186,6 +186,7 @@ constraint FK_Order_details foreign key (Customer_ID)
 references Customer_details(Customer_ID)
 );
 
+
 --Inserting a new value into country
 insert into country values (01, 'India'),(02, 'Japan');
 select * from country;
@@ -201,3 +202,6 @@ select * from City;
 --Inserting a new value into Customer_details
 insert into Customer_details values (00001, 'Toji',0001),(00002, 'Sukuna',0002);
 select * from Customer_details;
+
+--Inserting a new value into Order_details
+insert into Order_details values ('ODR_01', 'Whey protine', 2, 1),('ODR_02', 'Creatine', 1, 2);
