@@ -128,14 +128,18 @@ alter column city drop default;
 
 
 
---Foreign_ Key constraint---------------------------------------------------------------------------------
+--Foreign_Key constraint---------------------------------------------------------------------------------
 
+--0. Create a Database.
+create database Foreign_Key;
+use Foreign_Key;
 --1. Parent Table -> Country
 
 create table country (
 country_ID int primary key,
 country_Name varchar(50) not null
 );
+
 
 
 --2. Depends on country -> States
@@ -161,6 +165,7 @@ references States(State_ID)
 
 
 --4. Depends on City -> Customer's
+drop table Customer_details;
 
 create table Customer_details (
 Customer_ID int primary key,
@@ -170,11 +175,29 @@ constraint FK_Customer_City foreign key (City_ID)
 references City(City_ID)
 );
 
+--5. Depends on Customer's -> Order Details.
 
----
+create table Order_details (
+Order_ID varchar(50) primary key,
+product_Name varchar(50) not null,
+number_of_items int not null,
+Customer_ID int not null,
+constraint FK_Order_details foreign key (Customer_ID)
+references Customer_details(Customer_ID)
+);
+
+--Inserting a new value into country
 insert into country values (01, 'India'),(02, 'Japan');
+select * from country;
 
+--Inserting a new value into States
 insert into States values (001, 'TamilNadu',01),(002, 'Tokyo',02);
+select * from States;
 
+--Inserting a new value into City
 insert into City values (0001, 'Chennai',001),(0002, 'Hiroshima nagasai',002);
+select * from City;
 
+--Inserting a new value into Customer_details
+insert into Customer_details values (00001, 'Toji',0001),(00002, 'Sukuna',0002);
+select * from Customer_details;
